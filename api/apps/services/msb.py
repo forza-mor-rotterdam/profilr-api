@@ -6,7 +6,7 @@ from django.core.cache import cache
 class MSBService:
     url_base = f"{settings.MSB_API_URL}/sbmob/api"
     default_timeout = (5, 10)
-    cache_timeout = 60 * 5
+    default_cache_timeout = 60 * 5
     GET = "get"
     POST = "post"
 
@@ -20,7 +20,14 @@ class MSBService:
             return auth_parts[1]
 
     @staticmethod
-    def do_request(url, user_token, method=GET, data={}, no_cache=False):
+    def do_request(
+        url,
+        user_token,
+        method=GET,
+        data={},
+        no_cache=False,
+        cache_timeout=default_cache_timeout,
+    ):
         json_response = cache.get(url)
         action = getattr(requests, method, "get")
         if not json_response or no_cache:
@@ -34,7 +41,7 @@ class MSBService:
                 timeout=MSBService.default_timeout,
             )
             json_response = response.json()
-            cache.set(url, json_response, MSBService.cache_timeout)
+            cache.set(url, json_response, cache_timeout)
         else:
             print(f"fetch from cache: {url}")
         return json_response
@@ -68,9 +75,24 @@ class MSBService:
     @staticmethod
     def get_detail(melding_id, user_token):
         url = f"{MSBService.url_base}/msb/melding/{melding_id}"
-        return MSBService.do_request(url, user_token)
+        return MSBService.do_request(url, user_token, cache_timeout=30)
 
     @staticmethod
     def get_mutatieregels(melding_id, user_token):
         url = f"{MSBService.url_base}/msb/melding/{melding_id}/mutatieregels"
-        return MSBService.do_request(url, user_token)
+        return MSBService.do_request(url, user_token, cache_timeout=30)
+
+    @staticmethod
+    def get_wijken(user_token):
+        url = f"{MSBService.url_base}/wijken"
+        return MSBService.do_request(url, user_token, cache_timeout=60 * 60 * 24)
+
+    @staticmethod
+    def get_onderwerpgroepen(user_token):
+        url = f"{MSBService.url_base}/onderwerpgroepen"
+        return MSBService.do_request(url, user_token, cache_timeout=60 * 60 * 24)
+
+    @staticmethod
+    def get_afdelingen(user_token):
+        url = f"{MSBService.url_base}/afdelingen"
+        return MSBService.do_request(url, user_token, cache_timeout=60 * 60 * 24)

@@ -6,7 +6,6 @@ class BuurtSerializer(serializers.ModelSerializer):
     class Meta:
         model = Buurt
         fields = (
-            "wijk",
             "code",
             "name",
         )

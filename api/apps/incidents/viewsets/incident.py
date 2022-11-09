@@ -30,6 +30,7 @@ class IncidentViewSet(viewsets.ModelViewSet):
     ]
 
     def list(self, request, *args, **kwargs):
+
         user_token = MSBService.get_user_token_from_request(request)
         data = MSBService.get_list(user_token, request.GET, no_cache=True).get(
             "result", []

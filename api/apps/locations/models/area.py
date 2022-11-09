@@ -36,6 +36,8 @@ class Gemeente(Area):
         abstract = False
         verbose_name = "Gemeente"
         verbose_name_plural = "Gemeentes"
+        unique_together = ("code", "_type")
+        ordering = ["_type", "code"]
 
 
 class Wijk(Area):
@@ -45,6 +47,8 @@ class Wijk(Area):
         abstract = False
         verbose_name = "Wijk"
         verbose_name_plural = "Wijken"
+        unique_together = ("code", "_type")
+        ordering = ["_type", "code"]
 
 
 class Buurt(Area):
@@ -54,3 +58,5 @@ class Buurt(Area):
         abstract = False
         verbose_name = "Buurt"
         verbose_name_plural = "Buurten"
+        unique_together = ("code", "_type")
+        ordering = ["_type", "code"]

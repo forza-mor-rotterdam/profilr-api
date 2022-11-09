@@ -1,7 +1,10 @@
 import os
 from typing import Union
 
+from data import afdelingen as msb_afdelingen
 from data import meldingen
+from data import onderwerpgroepen as msb_onderwerpgroepen
+from data import wijken as msb_wijken
 from fastapi import FastAPI, Header, HTTPException, status
 from fastapi.responses import JSONResponse
 
@@ -112,3 +115,18 @@ async def logout():
         "success": True,
         "result": "",
     }
+
+
+@app.get("/sbmob/api/wijken")
+async def wijken():
+    return msb_wijken()
+
+
+@app.get("/sbmob/api/onderwerpgroepen")
+async def onderwerpgroepen():
+    return msb_onderwerpgroepen()
+
+
+@app.get("/sbmob/api/afdelingen")
+async def afdelingen():
+    return msb_afdelingen()
