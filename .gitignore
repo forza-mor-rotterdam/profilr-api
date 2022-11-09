@@ -71,7 +71,6 @@ Global/vim.gitignore
 *.pydevproject
 .metadata
 .gradle
-bin/
 tmp/
 *.tmp
 *.swp
