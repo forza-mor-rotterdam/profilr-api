@@ -1,0 +1,1370 @@
+[
+    {
+        "model": "categories.category",
+        "pk": 1,
+        "fields": {
+            "parent": null,
+            "slug": "afval",
+            "name": "Afval"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 2,
+        "fields": {
+            "parent": 1,
+            "slug": "bedrijfsafval",
+            "name": "bedrijfsafval"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 3,
+        "fields": {
+            "parent": 1,
+            "slug": "grofvuil-in-plantsoen",
+            "name": "Grofvuil in plantsoen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 4,
+        "fields": {
+            "parent": 1,
+            "slug": "grofvuil-op-straat",
+            "name": "Grofvuil op straat"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 5,
+        "fields": {
+            "parent": 1,
+            "slug": "grondzandgrind",
+            "name": "grond/zand/grind"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 6,
+        "fields": {
+            "parent": 1,
+            "slug": "huisvuil-verkeerd-aangeboden",
+            "name": "huisvuil verkeerd aangeboden"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 7,
+        "fields": {
+            "parent": 1,
+            "slug": "huisvuilzakken-naast-container",
+            "name": "huisvuilzakken naast container"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 8,
+        "fields": {
+            "parent": 1,
+            "slug": "huisvuilzakken-niet-opgehaald",
+            "name": "huisvuilzakken niet opgehaald"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 9,
+        "fields": {
+            "parent": 1,
+            "slug": "klein-afval",
+            "name": "Klein Afval"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 10,
+        "fields": {
+            "parent": 1,
+            "slug": "koelkastvriezer",
+            "name": "koelkast/vriezer"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 11,
+        "fields": {
+            "parent": 1,
+            "slug": "sloopafval",
+            "name": "sloopafval"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 12,
+        "fields": {
+            "parent": null,
+            "slug": "afvalcontainerprullenbak",
+            "name": "Afvalcontainer+Prullenbak"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 13,
+        "fields": {
+            "parent": 12,
+            "slug": "bouwpuincontainer",
+            "name": "Bouw/puincontainer"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 14,
+        "fields": {
+            "parent": 12,
+            "slug": "cocon1100-liter-rolcontainer-vol",
+            "name": "cocon/1100 liter rolcontainer vol"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 15,
+        "fields": {
+            "parent": 12,
+            "slug": "containerruimte-markthal",
+            "name": "Containerruimte markthal"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 16,
+        "fields": {
+            "parent": 12,
+            "slug": "glascontainer-kapot",
+            "name": "glascontainer kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 17,
+        "fields": {
+            "parent": 12,
+            "slug": "glascontainer-vol",
+            "name": "glascontainer vol"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 18,
+        "fields": {
+            "parent": 12,
+            "slug": "huiscontainer-kapot",
+            "name": "Huiscontainer kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 19,
+        "fields": {
+            "parent": 12,
+            "slug": "huiscontainergfetgft-niet-geleegd",
+            "name": "Huiscontainer(gfe+t/gft) niet geleegd"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 20,
+        "fields": {
+            "parent": 12,
+            "slug": "huiscontainerpapier-niet-geleegd",
+            "name": "Huiscontainer(papier) niet geleegd"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 21,
+        "fields": {
+            "parent": 12,
+            "slug": "huiscontainerrest-niet-geleegd",
+            "name": "Huiscontainer(rest) niet geleegd"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 22,
+        "fields": {
+            "parent": 12,
+            "slug": "papiercontainer-kapot",
+            "name": "papiercontainer kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 23,
+        "fields": {
+            "parent": 12,
+            "slug": "papiercontainer-vol",
+            "name": "papiercontainer vol"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 24,
+        "fields": {
+            "parent": 12,
+            "slug": "prullenbak-kapot",
+            "name": "prullenbak kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 25,
+        "fields": {
+            "parent": 12,
+            "slug": "prullenbak-vol",
+            "name": "prullenbak vol "
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 26,
+        "fields": {
+            "parent": 12,
+            "slug": "restafvalcontainer-kapot",
+            "name": "restafvalcontainer kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 27,
+        "fields": {
+            "parent": 12,
+            "slug": "restafvalcontainer-vol",
+            "name": "restafvalcontainer vol"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 28,
+        "fields": {
+            "parent": 12,
+            "slug": "textielcontainer-kapot",
+            "name": "textielcontainer kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 29,
+        "fields": {
+            "parent": 12,
+            "slug": "textielcontainer-vol",
+            "name": "textielcontainer vol"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 30,
+        "fields": {
+            "parent": 12,
+            "slug": "wijkcontainer-gfe-kapot",
+            "name": "Wijkcontainer (gfe) kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 31,
+        "fields": {
+            "parent": 12,
+            "slug": "wijkcontainer-gfe-vol",
+            "name": "Wijkcontainer (gfe) vol"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 32,
+        "fields": {
+            "parent": null,
+            "slug": "bomen-planten-gras",
+            "name": "Bomen, planten, gras"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 33,
+        "fields": {
+            "parent": 32,
+            "slug": "bloembakken",
+            "name": "bloembakken"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 34,
+        "fields": {
+            "parent": 32,
+            "slug": "bomen",
+            "name": "Bomen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 35,
+        "fields": {
+            "parent": 32,
+            "slug": "gras",
+            "name": "Gras"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 36,
+        "fields": {
+            "parent": 32,
+            "slug": "japanse-duizendknoop",
+            "name": "Japanse Duizendknoop"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 37,
+        "fields": {
+            "parent": 32,
+            "slug": "plantsoenen",
+            "name": "plantsoenen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 38,
+        "fields": {
+            "parent": null,
+            "slug": "dieren",
+            "name": "Dieren"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 39,
+        "fields": {
+            "parent": 38,
+            "slug": "dieren-overig",
+            "name": "Dieren overig"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 40,
+        "fields": {
+            "parent": 38,
+            "slug": "dode-duiven",
+            "name": "Dode duiven"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 41,
+        "fields": {
+            "parent": 38,
+            "slug": "dode-ratten",
+            "name": "Dode ratten"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 42,
+        "fields": {
+            "parent": 38,
+            "slug": "dode-vogels",
+            "name": "Dode vogels"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 43,
+        "fields": {
+            "parent": 38,
+            "slug": "dood-dier-inaan-water-geen-ratduif",
+            "name": "dood dier in/aan water (geen rat/duif)"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 44,
+        "fields": {
+            "parent": 38,
+            "slug": "dood-dier-opaan-weg-geen-ratduif",
+            "name": "dood dier op/aan weg (geen rat/duif)"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 45,
+        "fields": {
+            "parent": 38,
+            "slug": "duivenoverlast",
+            "name": "Duivenoverlast"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 46,
+        "fields": {
+            "parent": 38,
+            "slug": "eikenprocessierups",
+            "name": "Eikenprocessierups"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 47,
+        "fields": {
+            "parent": 38,
+            "slug": "levende-ratten",
+            "name": "Levende ratten"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 48,
+        "fields": {
+            "parent": 38,
+            "slug": "overlast-wespen-bijen-hommels",
+            "name": "Overlast wespen, bijen, hommels"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 49,
+        "fields": {
+            "parent": null,
+            "slug": "gevaarlijk-straatafval",
+            "name": "Gevaarlijk (straat)afval"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 50,
+        "fields": {
+            "parent": 49,
+            "slug": "accu",
+            "name": "accu"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 51,
+        "fields": {
+            "parent": 49,
+            "slug": "asbest",
+            "name": "asbest"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 52,
+        "fields": {
+            "parent": 49,
+            "slug": "gastankbrandblusapparatuur",
+            "name": "gastank/brandblusapparatuur"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 53,
+        "fields": {
+            "parent": 49,
+            "slug": "injectienaaldenspuiten",
+            "name": "injectienaalden/spuiten"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 54,
+        "fields": {
+            "parent": 49,
+            "slug": "klein-chemisch-afval",
+            "name": "(klein) chemisch afval"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 55,
+        "fields": {
+            "parent": 49,
+            "slug": "olielekkagemorsing",
+            "name": "(olie)lekkage/morsing"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 56,
+        "fields": {
+            "parent": 49,
+            "slug": "olievaten",
+            "name": "(olie)vaten"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 57,
+        "fields": {
+            "parent": 49,
+            "slug": "onbekende-stoffen",
+            "name": "onbekende stoffen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 58,
+        "fields": {
+            "parent": 49,
+            "slug": "uitgebrande-voertuigen-herstel-wegdek",
+            "name": "uitgebrande voertuigen (herstel wegdek)"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 59,
+        "fields": {
+            "parent": null,
+            "slug": "graffiti",
+            "name": "Graffiti"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 60,
+        "fields": {
+            "parent": 59,
+            "slug": "graffiti-discriminerend",
+            "name": "graffiti-discriminerend"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 61,
+        "fields": {
+            "parent": 59,
+            "slug": "graffiti-overig",
+            "name": "graffiti-overig"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 62,
+        "fields": {
+            "parent": null,
+            "slug": "maatregelen-covid-19",
+            "name": "Maatregelen COVID -19"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 63,
+        "fields": {
+            "parent": 62,
+            "slug": "controle-coronatoegangsbewijs",
+            "name": "Controle coronatoegangsbewijs "
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 64,
+        "fields": {
+            "parent": null,
+            "slug": "meldkamer-stadsbeheer",
+            "name": "Meldkamer Stadsbeheer"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 65,
+        "fields": {
+            "parent": 64,
+            "slug": "flying-squads-schone-stad",
+            "name": "Flying Squads Schone Stad"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 66,
+        "fields": {
+            "parent": 64,
+            "slug": "flying-squads-th",
+            "name": "Flying Squads T&H"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 67,
+        "fields": {
+            "parent": null,
+            "slug": "overige-onderwerpen",
+            "name": "Overige onderwerpen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 68,
+        "fields": {
+            "parent": 67,
+            "slug": "marktvoorzieningen",
+            "name": "Marktvoorzieningen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 69,
+        "fields": {
+            "parent": 67,
+            "slug": "melding-op-begraafplaats",
+            "name": "Melding op begraafplaats"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 70,
+        "fields": {
+            "parent": 67,
+            "slug": "openbare-werken-algemeen",
+            "name": "Openbare werken algemeen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 71,
+        "fields": {
+            "parent": 67,
+            "slug": "schone-stad-algemeen",
+            "name": "Schone Stad algemeen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 72,
+        "fields": {
+            "parent": 67,
+            "slug": "stadsontwikkeling-algemeen",
+            "name": "Stadsontwikkeling Algemeen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 73,
+        "fields": {
+            "parent": 67,
+            "slug": "toezicht-handhaving-algemeen",
+            "name": "Toezicht & Handhaving algemeen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 74,
+        "fields": {
+            "parent": null,
+            "slug": "overlast",
+            "name": "Overlast"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 75,
+        "fields": {
+            "parent": 74,
+            "slug": "overlast-markten",
+            "name": "Overlast markten"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 76,
+        "fields": {
+            "parent": null,
+            "slug": "parkeeroverlast",
+            "name": "Parkeeroverlast"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 77,
+        "fields": {
+            "parent": 76,
+            "slug": "aanhangerscaravans",
+            "name": "Aanhangers/caravans"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 78,
+        "fields": {
+            "parent": 76,
+            "slug": "hinderlijk-geparkeerde-brom-fiets",
+            "name": "Hinderlijk geparkeerde (brom-)fiets"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 79,
+        "fields": {
+            "parent": 76,
+            "slug": "parkeeroverlast",
+            "name": "Parkeeroverlast"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 80,
+        "fields": {
+            "parent": 76,
+            "slug": "te-lang-geparkeerde-brom-fiets",
+            "name": "Te lang geparkeerde (brom-)fiets"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 81,
+        "fields": {
+            "parent": null,
+            "slug": "singels-en-sloten",
+            "name": "Singels en sloten"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 82,
+        "fields": {
+            "parent": 81,
+            "slug": "beschoeiingen",
+            "name": "beschoeiingen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 83,
+        "fields": {
+            "parent": 81,
+            "slug": "drijfvuil-in-singel",
+            "name": "drijfvuil in singel"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 84,
+        "fields": {
+            "parent": 81,
+            "slug": "fonteinen",
+            "name": "Fonteinen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 85,
+        "fields": {
+            "parent": 81,
+            "slug": "singel",
+            "name": "singel "
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 86,
+        "fields": {
+            "parent": 81,
+            "slug": "zinkvuilvloeistoffen-in-singel",
+            "name": "zinkvuil/vloeistoffen in singel"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 87,
+        "fields": {
+            "parent": null,
+            "slug": "speelplaatsen",
+            "name": "Speelplaatsen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 88,
+        "fields": {
+            "parent": 87,
+            "slug": "speelplaats",
+            "name": "speelplaats"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 89,
+        "fields": {
+            "parent": null,
+            "slug": "straatmeubilair-kapot",
+            "name": "Straatmeubilair kapot"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 90,
+        "fields": {
+            "parent": 89,
+            "slug": "bewegwijzering",
+            "name": "bewegwijzering"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 91,
+        "fields": {
+            "parent": 89,
+            "slug": "klok-uurwerk",
+            "name": "klok / uurwerk "
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 92,
+        "fields": {
+            "parent": 89,
+            "slug": "openbaar-oplaadpunt-elektrische-auto",
+            "name": "openbaar oplaadpunt elektrische auto"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 93,
+        "fields": {
+            "parent": 89,
+            "slug": "straatmeubilair-algemeen",
+            "name": "straatmeubilair algemeen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 94,
+        "fields": {
+            "parent": 89,
+            "slug": "straatnaambordverkeersbord",
+            "name": "straatnaambord/verkeersbord"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 95,
+        "fields": {
+            "parent": 89,
+            "slug": "watertappunt",
+            "name": "Watertappunt"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 96,
+        "fields": {
+            "parent": null,
+            "slug": "straatverlichting",
+            "name": "Straatverlichting"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 97,
+        "fields": {
+            "parent": 96,
+            "slug": "beschadigde-lichtmast",
+            "name": "beschadigde lichtmast"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 98,
+        "fields": {
+            "parent": 96,
+            "slug": "brandt-geen-verlichting-in-gehele-straat",
+            "name": "brandt geen verlichting in gehele straat"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 99,
+        "fields": {
+            "parent": 96,
+            "slug": "lampen-uit",
+            "name": "lamp(en) uit"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 100,
+        "fields": {
+            "parent": 96,
+            "slug": "lichtmastluikje-staat-open-bedrading-zichtbaar",
+            "name": "lichtmastluikje staat open / bedrading zichtbaar"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 101,
+        "fields": {
+            "parent": 96,
+            "slug": "scheefstaande-lichtmast",
+            "name": "scheefstaande lichtmast"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 102,
+        "fields": {
+            "parent": 96,
+            "slug": "verlichting-brandt-ook-overdag",
+            "name": "verlichting brandt ook overdag                "
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 103,
+        "fields": {
+            "parent": 96,
+            "slug": "verlichting-overig-geef-omschrijving",
+            "name": "verlichting overig: (geef omschrijving)"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 104,
+        "fields": {
+            "parent": null,
+            "slug": "vuil-op-straat",
+            "name": "Vuil op straat"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 105,
+        "fields": {
+            "parent": 104,
+            "slug": "andere-uitwerpselen",
+            "name": "Andere uitwerpselen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 106,
+        "fields": {
+            "parent": 104,
+            "slug": "ganzen-of-eendenpoep",
+            "name": "Ganzen- of eendenpoep"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 107,
+        "fields": {
+            "parent": 104,
+            "slug": "glas-op-straat",
+            "name": "glas op straat"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 108,
+        "fields": {
+            "parent": 104,
+            "slug": "hondenpoep-op-straat",
+            "name": "Hondenpoep op straat"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 109,
+        "fields": {
+            "parent": 104,
+            "slug": "honden-uitlaatzone",
+            "name": "honden-uitlaatzone"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 110,
+        "fields": {
+            "parent": 104,
+            "slug": "kerstboom-op-straat",
+            "name": "Kerstboom op straat"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 111,
+        "fields": {
+            "parent": 104,
+            "slug": "onkruid-in-groen",
+            "name": "Onkruid in groen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 112,
+        "fields": {
+            "parent": 104,
+            "slug": "onkruid-op-verharding",
+            "name": "Onkruid op verharding"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 113,
+        "fields": {
+            "parent": 104,
+            "slug": "overlast-blad-of-bloesem",
+            "name": "Overlast blad of bloesem"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 114,
+        "fields": {
+            "parent": 104,
+            "slug": "zwerfvuil-in-het-water",
+            "name": "zwerfvuil in het water"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 115,
+        "fields": {
+            "parent": 104,
+            "slug": "zwerfvuil-in-plantsoen",
+            "name": "zwerfvuil in plantsoen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 116,
+        "fields": {
+            "parent": 104,
+            "slug": "zwerfvuil-op-straat",
+            "name": "zwerfvuil op straat"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 117,
+        "fields": {
+            "parent": null,
+            "slug": "wateroverlast-riolering",
+            "name": "Wateroverlast / riolering"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 118,
+        "fields": {
+            "parent": 117,
+            "slug": "hoofdriool",
+            "name": "hoofdriool"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 119,
+        "fields": {
+            "parent": 117,
+            "slug": "rioolaansluiting-verstopping",
+            "name": "Rioolaansluiting (verstopping)"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 120,
+        "fields": {
+            "parent": 117,
+            "slug": "slechtegeen-afwatering",
+            "name": "slechte/geen afwatering"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 121,
+        "fields": {
+            "parent": 117,
+            "slug": "stankoverlast",
+            "name": "stankoverlast"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 122,
+        "fields": {
+            "parent": 117,
+            "slug": "storing-gemaal",
+            "name": "storing gemaal"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 123,
+        "fields": {
+            "parent": 117,
+            "slug": "straatkolk-verstopt",
+            "name": "straatkolk (verstopt)"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 124,
+        "fields": {
+            "parent": 117,
+            "slug": "water-in-de-kruipruimte-de-kelder-of-in-de-tuin",
+            "name": "Water in de kruipruimte, de kelder of in de tuin"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 125,
+        "fields": {
+            "parent": 117,
+            "slug": "water-of-rioolpersleiding",
+            "name": "Water- of rioolpersleiding"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 126,
+        "fields": {
+            "parent": null,
+            "slug": "weg-fietsvoetpad-brug",
+            "name": "Weg (fiets/voet)pad brug"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 127,
+        "fields": {
+            "parent": 126,
+            "slug": "boomwortels",
+            "name": "boomwortels"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 128,
+        "fields": {
+            "parent": 126,
+            "slug": "brug",
+            "name": "brug"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 129,
+        "fields": {
+            "parent": 126,
+            "slug": "fietspad",
+            "name": "fietspad"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 130,
+        "fields": {
+            "parent": 126,
+            "slug": "gebiedsgericht",
+            "name": "gebiedsgericht"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 131,
+        "fields": {
+            "parent": 126,
+            "slug": "gladheid-sneeuw-ijzel-vorst",
+            "name": "gladheid (sneeuw-ijzel-vorst)"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 132,
+        "fields": {
+            "parent": 126,
+            "slug": "invalide-oprit",
+            "name": "invalide-oprit"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 133,
+        "fields": {
+            "parent": 126,
+            "slug": "rijweg",
+            "name": "rijweg"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 134,
+        "fields": {
+            "parent": 126,
+            "slug": "roltraprolband",
+            "name": "roltrap/rolband"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 135,
+        "fields": {
+            "parent": 126,
+            "slug": "sluis",
+            "name": "sluis"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 136,
+        "fields": {
+            "parent": 126,
+            "slug": "tunnelsviaducten",
+            "name": "tunnels/viaducten"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 137,
+        "fields": {
+            "parent": 126,
+            "slug": "verkeersdrempel",
+            "name": "verkeersdrempel"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 138,
+        "fields": {
+            "parent": 126,
+            "slug": "voetpad",
+            "name": "voetpad"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 139,
+        "fields": {
+            "parent": null,
+            "slug": "wegwerkzaamheden",
+            "name": "(Weg)werkzaamheden"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 140,
+        "fields": {
+            "parent": 139,
+            "slug": "bouwplaatsen-algemeen",
+            "name": "bouwplaatsen - algemeen"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 141,
+        "fields": {
+            "parent": 139,
+            "slug": "ingraving-huisaansluiting",
+            "name": "ingraving - huisaansluiting"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 142,
+        "fields": {
+            "parent": 139,
+            "slug": "tijdelijke-verkeerssituatie",
+            "name": "tijdelijke verkeerssituatie"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 143,
+        "fields": {
+            "parent": null,
+            "slug": "wildplakken",
+            "name": "Wildplakken"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 144,
+        "fields": {
+            "parent": 143,
+            "slug": "posters",
+            "name": "Posters"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 145,
+        "fields": {
+            "parent": 143,
+            "slug": "reclamebord",
+            "name": "Reclamebord"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 146,
+        "fields": {
+            "parent": 143,
+            "slug": "sandwichborden",
+            "name": "sandwichborden"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 147,
+        "fields": {
+            "parent": 143,
+            "slug": "stickers",
+            "name": "Stickers"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 148,
+        "fields": {
+            "parent": null,
+            "slug": "winkelwagens",
+            "name": "Winkelwagens"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 149,
+        "fields": {
+            "parent": 148,
+            "slug": "winkelwagens",
+            "name": "winkelwagens"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 150,
+        "fields": {
+            "parent": null,
+            "slug": "wrakken",
+            "name": "Wrakken"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 151,
+        "fields": {
+            "parent": 150,
+            "slug": "brom-fietswrak",
+            "name": "(Brom-)fietswrak"
+        }
+    },
+    {
+        "model": "categories.category",
+        "pk": 152,
+        "fields": {
+            "parent": 150,
+            "slug": "wrak-auto",
+            "name": "wrak - auto"
+        }
+    }
+  ]

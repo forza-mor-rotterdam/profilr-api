@@ -1,0 +1,109 @@
+version: '3'
+services:
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - profilr_network
+
+  dex:
+    image: quay.io/dexidp/dex:v2.23.0
+    user: root
+    command: serve /config.yml
+    ports:
+      - 5556:5556
+    volumes:
+      - ./dex.dev.yml:/config.yml
+      - dex-data:/data
+    networks:
+      - profilr_network
+
+  database:
+    image: postgis/postgis:11-3.3
+    shm_size: '1024m'
+    ports:
+      - "5409:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - profilr_network
+
+  rabbit:
+    image: rabbitmq:3.8
+    ports:
+      - "5672:5672"
+    env_file:
+      - .env
+    networks:
+      - profilr_network
+
+  celery:
+    build: ./api
+    links:
+      - database
+      - rabbit
+      - mailhog
+    env_file:
+      - .env
+    volumes:
+      - ./api:/app
+      - ./api/deploy:/deploy
+    networks:
+      - profilr_network
+    command: celery -A config worker -l info
+
+  celery_beat:
+    build: ./api
+    links:
+      - celery
+      - database
+      - rabbit
+    env_file:
+      - .env
+    volumes:
+      - ./api:/app
+      - ./api/deploy:/deploy
+    networks:
+      - profilr_network
+    command: celery -A config beat -l info --pidfile /tmp/celerybeat.pid
+
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    links:
+      - database
+      - dex
+      - celery
+    env_file:
+      - .env
+    volumes:
+      - ./api:/app
+      - ./api/deploy:/deploy
+      - ./api/deploy/docker-run.sh:/docker-run.sh
+    networks:
+      - profilr_network
+    command:
+      - /docker-run.sh
+  msb:
+    build: ./msb
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+    volumes:
+      - ./msb/app/:/build/app
+    networks:
+      - profilr_network
+
+volumes:
+  dex-data:
+  postgres-data:
+
+networks:
+  profilr_network:
+    external: true
