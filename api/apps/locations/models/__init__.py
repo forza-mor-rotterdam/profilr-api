@@ -1,17 +1,11 @@
+from apps.locations.models.area import Area, AreaType, Buurt, Gemeente, Wijk
 from apps.locations.models.location import Location
-from apps.locations.models.area import (
-    Area, 
-    AreaType, 
-    Gemeente, 
-    Wijk, 
-    Buurt
-)
 
 __all__ = [
-    'Location',
-    'Area',
-    'AreaType',
-    'Gemeente',
-    'Wijk',
-    'Buurt',
+    "Location",
+    "Area",
+    "AreaType",
+    "Gemeente",
+    "Wijk",
+    "Buurt",
 ]

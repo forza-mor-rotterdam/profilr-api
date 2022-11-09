@@ -1,6 +1,5 @@
 from apps.locations.models import Buurt
 from apps.locations.serializers import BuurtSerializer
-
 from rest_framework import viewsets
 
 
@@ -10,10 +9,6 @@ class BuurtViewSet(viewsets.ModelViewSet):
 
     serializer_class = BuurtSerializer
 
-    http_method_names = ['get', ]
-
-
-
-
-
-
+    http_method_names = [
+        "get",
+    ]

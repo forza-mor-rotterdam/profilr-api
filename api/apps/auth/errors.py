@@ -4,7 +4,7 @@ from django import http
 
 
 class AuthConfigurationError(Exception):
-    """ Error for missing / invalid configuration"""
+    """Error for missing / invalid configuration"""
 
 
 class AuthorizationHeaderError(Exception):
@@ -14,9 +14,10 @@ class AuthorizationHeaderError(Exception):
 
 def invalid_request():
     msg = (
-        "Bearer realm=\"Signals\", error=\"invalid_request\", "
-        "error_description=\"Invalid Authorization header format; "
-        "should be: 'Bearer [token]'\"")
-    response = http.HttpResponse('Bad Request', status=400)
-    response['WWW-Authenticate'] = msg
+        'Bearer realm="Signals", error="invalid_request", '
+        'error_description="Invalid Authorization header format; '
+        "should be: 'Bearer [token]'\""
+    )
+    response = http.HttpResponse("Bad Request", status=400)
+    response["WWW-Authenticate"] = msg
     return response

@@ -2,11 +2,10 @@
 # Copyright (C) 2020 - 2021 Gemeente Amsterdam
 import random
 
+from apps.locations.models import Area, AreaType
 from django.contrib.gis.geos import MultiPolygon, Polygon
 from factory import Sequence, SubFactory
 from factory.django import DjangoModelFactory
-
-from apps.locations.models import Area, AreaType
 
 # Amsterdam.
 BBOX = [4.58565, 52.03560, 5.31360, 52.48769]
@@ -21,28 +20,30 @@ def get_random_bbox(bbox=BBOX, n_lon_subdiv=10, n_lat_subdiv=10):
     ilon = random.randrange(n_lon_subdiv)
     ilat = random.randrange(n_lat_subdiv)
 
-    return Polygon.from_bbox((
-        min_lon + (extent_lon / n_lon_subdiv) * ilon,
-        min_lat + (extent_lat / n_lat_subdiv) * ilat,
-        min_lon + (extent_lon / n_lon_subdiv) * (ilon + 1),
-        min_lat + (extent_lat / n_lat_subdiv) * (ilat + 1),
-    ))
+    return Polygon.from_bbox(
+        (
+            min_lon + (extent_lon / n_lon_subdiv) * ilon,
+            min_lat + (extent_lat / n_lat_subdiv) * ilat,
+            min_lon + (extent_lon / n_lon_subdiv) * (ilon + 1),
+            min_lat + (extent_lat / n_lat_subdiv) * (ilat + 1),
+        )
+    )
 
 
 class AreaTypeFactory(DjangoModelFactory):
     class Meta:
         model = AreaType
 
-    name = Sequence(lambda n: f'Gebied type {n}')
-    code = Sequence(lambda n: f'gebied-type-code-{n}')
-    description = Sequence(lambda n: f'Omschrijving bij gebied type {n}')
+    name = Sequence(lambda n: f"Gebied type {n}")
+    code = Sequence(lambda n: f"gebied-type-code-{n}")
+    description = Sequence(lambda n: f"Omschrijving bij gebied type {n}")
 
 
 class AreaFactory(DjangoModelFactory):
     class Meta:
         model = Area
 
-    name = Sequence(lambda n: f'Gebied type {n}')
-    code = Sequence(lambda n: f'gebied-type-code-{n}')
+    name = Sequence(lambda n: f"Gebied type {n}")
+    code = Sequence(lambda n: f"gebied-type-code-{n}")
     _type = SubFactory(AreaTypeFactory)
     geometry = MultiPolygon([get_random_bbox()])

@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/ubi8/python-39
 
 ENV SUMMARY="Ubi8 base image with Proj, GDAL and GEOS preinstalled with cmake from OSGeo"
 
-LABEL summary="$SUMMARY" 
+LABEL summary="$SUMMARY"
 
 USER root
 
@@ -37,7 +37,7 @@ RUN mkdir -p ${INSTALL_DIR} && \
     cmake --build ${INSTALL_DIR}/geos-${GEOS_VERSION}/build/ && \
     cmake --build ${INSTALL_DIR}/geos-${GEOS_VERSION}/build/ --target install && \
     ldconfig && \
-    rm -rf ${INSTALL_DIR}/ 
+    rm -rf ${INSTALL_DIR}/
 
 ENV GDAL_LIBRARY_PATH=/usr/local/lib64/libgdal.so
 ENV GEOS_LIBRARY_PATH=/usr/local/lib64/libgeos.so

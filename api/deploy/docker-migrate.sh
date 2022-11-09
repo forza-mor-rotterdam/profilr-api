@@ -7,4 +7,3 @@ set -x   # print what we are doing
 cd /app/
 
 yes yes | python manage.py migrate --noinput
-

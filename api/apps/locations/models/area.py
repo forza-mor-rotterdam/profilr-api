@@ -3,9 +3,9 @@ from django.contrib.gis.db import models
 
 class AreaType(models.Model):
     class Meta:
-        verbose_name = 'Gebiedstype'
-        verbose_name_plural = 'Gebiedstypen'
-        ordering = ['code']
+        verbose_name = "Gebiedstype"
+        verbose_name_plural = "Gebiedstypen"
+        ordering = ["code"]
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
@@ -17,12 +17,6 @@ class AreaType(models.Model):
 
 
 class Area(models.Model):
-    class Meta:
-        verbose_name = 'Gebied'
-        verbose_name_plural = 'Gebieden'
-        unique_together = ('code', '_type')
-        ordering = ['_type', 'code']
-
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=255)
     _type = models.ForeignKey(AreaType, on_delete=models.CASCADE)
@@ -33,21 +27,30 @@ class Area(models.Model):
 
     class Meta:
         abstract = True
+        unique_together = ("code", "_type")
+        ordering = ["_type", "code"]
 
 
 class Gemeente(Area):
     class Meta:
         abstract = False
+        verbose_name = "Gemeente"
+        verbose_name_plural = "Gemeentes"
+
 
 class Wijk(Area):
     gemeente = models.ForeignKey(Gemeente, on_delete=models.CASCADE)
-    
+
     class Meta:
         abstract = False
+        verbose_name = "Wijk"
+        verbose_name_plural = "Wijken"
 
 
 class Buurt(Area):
     wijk = models.ForeignKey(Wijk, on_delete=models.CASCADE)
-    
+
     class Meta:
         abstract = False
+        verbose_name = "Buurt"
+        verbose_name_plural = "Buurten"

@@ -1,7 +1,9 @@
-from apps.incidents.serializers.incident import IncidentListSerializer
-from apps.incidents.serializers.incident import IncidentSerializer
+from apps.incidents.serializers.incident import (
+    IncidentListSerializer,
+    IncidentSerializer,
+)
 
 __all__ = [
-    'IncidentListSerializer',
-    'IncidentSerializer',
+    "IncidentListSerializer",
+    "IncidentSerializer",
 ]

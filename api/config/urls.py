@@ -1,7 +1,7 @@
+from apps.incidents.viewsets import IncidentViewSet
+from apps.locations.viewsets import BuurtViewSet, WijkViewSet
 from django.contrib import admin
 from django.urls import include, path
-from apps.incidents.viewsets import IncidentViewSet
-from apps.locations.viewsets import WijkViewSet, BuurtViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -15,10 +15,8 @@ router.register(r"buurten", BuurtViewSet, basename="buurten")
 
 urlpatterns = [
     # Used to determine API health when deploying
-    path('status/', include('apps.health.urls')),
-
+    path("status/", include("apps.health.urls")),
     # The Django admin
-    path('admin/', admin.site.urls),
-
+    path("admin/", admin.site.urls),
     path("v1/", include((router.urls, "app"), namespace="v1")),
 ]

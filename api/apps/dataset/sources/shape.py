@@ -5,37 +5,37 @@ import zipfile
 from urllib.parse import urlsplit
 
 import requests
+from apps.dataset.base import AreaLoader
+from apps.locations.models import AreaType, Buurt, Wijk
 from django.contrib.gis.gdal import DataSource, OGRGeomType
 from django.contrib.gis.geos import MultiPolygon
 from django.db import transaction
 
-from apps.dataset.base import AreaLoader
-from apps.locations.models import Area, AreaType, Wijk, Gemeente, Buurt
-
 
 class ShapeBoundariesLoader(AreaLoader):
-    DATASET_INFO = {
-        'GENERIC': {}
-    }
+    DATASET_INFO = {"GENERIC": {}}
 
     PROVIDES = DATASET_INFO.keys()
 
     def __init__(self, **options):
-        type_string = options['type_string']
-        directory = options['dir']
+        type_string = options["type_string"]
+        directory = options["dir"]
         print(type_string)
         print(self.PROVIDES)
         assert type_string in self.PROVIDES
 
         self.area_type, _ = AreaType.objects.get_or_create(
-            code=options['type'],
-            defaults={'name': options['type'], 'description': f"{options['type']} data"}
+            code=options["type"],
+            defaults={
+                "name": options["type"],
+                "description": f"{options['type']} data",
+            },
         )
         self.directory = directory  # Data downloaded / processed here. Caller is responsible to clean-up directory.
-        self.DATASET_URL = options['url']
-        self.data_file = options['shp']
-        self.code_field = options['code']
-        self.name_field = options['name']
+        self.DATASET_URL = options["url"]
+        self.data_file = options["shp"]
+        self.code_field = options["code"]
+        self.name_field = options["name"]
 
     def _download(self, zip_fullpath):
         """
@@ -46,7 +46,7 @@ class ShapeBoundariesLoader(AreaLoader):
 
         with requests.get(self.DATASET_URL, stream=True, verify=False) as r:
             r.raise_for_status()
-            with open(zip_fullpath, 'wb') as f:
+            with open(zip_fullpath, "wb") as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
 
@@ -54,7 +54,7 @@ class ShapeBoundariesLoader(AreaLoader):
         """
         Extract ZIP file to temp_dir.
         """
-        with zipfile.ZipFile(zip_fullpath, 'r') as zf:
+        with zipfile.ZipFile(zip_fullpath, "r") as zf:
             zf.extractall(path=self.directory)
 
     def _load_shape_data(self, data_fullpath):
@@ -65,25 +65,25 @@ class ShapeBoundariesLoader(AreaLoader):
         geom_by_code = {}
         name_by_code = {}
 
-        polygon_type = OGRGeomType('Polygon')
-        multipolygon_type = OGRGeomType('MultiPolygon')
+        polygon_type = OGRGeomType("Polygon")
+        multipolygon_type = OGRGeomType("MultiPolygon")
 
         # Collect possible separate geometries representing the area of a single
         # municipality.
         for feature in ds[0]:
             code = feature.get(self.code_field)
             name = feature.get(self.name_field)
-            gemeente_code = feature.get("GM_CODE")
+            feature.get("GM_CODE")
             wijk_code = feature.get("WK_CODE")
             print(wijk_code)
             assert name or code  # At least one of these must be different from None.
 
             if not name and code:
-                name = code   # No name present, use code as name.
+                name = code  # No name present, use code as name.
             name_by_code[code] = name
 
             # Transform to WGS84 and merge if needed.
-            transformed = feature.geom.transform('WGS84', clone=True)
+            transformed = feature.geom.transform("WGS84", clone=True)
             # print(name)
             if code in geom_by_code:
                 # print("do-union")
@@ -104,7 +104,7 @@ class ShapeBoundariesLoader(AreaLoader):
                 elif geometry.geom_type == multipolygon_type:
                     geos_geometry = geometry.geos
                 else:
-                    raise Exception('Expected either polygon or multipolygon.')
+                    raise Exception("Expected either polygon or multipolygon.")
                 wijk = Wijk.objects.filter(code=wijk_code).first()
                 print("wijk name")
                 print(wijk)
@@ -114,7 +114,7 @@ class ShapeBoundariesLoader(AreaLoader):
                         code=code,
                         wijk=wijk,
                         _type=self.area_type,
-                        geometry=geos_geometry
+                        geometry=geos_geometry,
                     )
 
     def load(self):

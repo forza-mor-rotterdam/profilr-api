@@ -2,10 +2,9 @@
 # Copyright (C) 2020 - 2021 Vereniging van Nederlandse Gemeenten, Gemeente Amsterdam
 import json
 
+from apps.categories.models import Category
 from django.core.management import BaseCommand
 from django.utils.text import slugify
-
-from apps.categories.models import Category
 
 
 class Command(BaseCommand):
@@ -15,7 +14,7 @@ class Command(BaseCommand):
     def _init_slugs_dict(self) -> None:
         if self.data is not None:
             for cat in self.data:
-                self.slugsdict[cat['pk']] = cat['fields']['slug']
+                self.slugsdict[cat["pk"]] = cat["fields"]["slug"]
 
     def _get_parent(self, id) -> Category:
         if id in self.slugsdict:
@@ -27,11 +26,15 @@ class Command(BaseCommand):
         try:
             return Category.objects.get(slug=slug, parent=parent)
         except Exception as e:
-            print("Failed get cat {cat} - {parent}: {err}".format(cat=slug, parent=parent, err=str(e)))
+            print(
+                "Failed get cat {cat} - {parent}: {err}".format(
+                    cat=slug, parent=parent, err=str(e)
+                )
+            )
             return None
 
     def add_arguments(self, parser) -> None:
-        parser.add_argument('data_file', type=str)
+        parser.add_argument("data_file", type=str)
 
     # load_categories will create new slug if the Name property changes. The load_categories command
     # is not intended to be used for renaming categories. It's intended for loading new catagories
@@ -40,21 +43,21 @@ class Command(BaseCommand):
     # transformation remains the same.
     def handle(self, *args, **options) -> None:
         self.processed_cats = set()
-        with open(options['data_file']) as f:
+        with open(options["data_file"]) as f:
             self.data = json.load(f)
         if self.data is not None:
             self._init_slugs_dict()
-            self.stdout.write(f'Total Categories: {len(self.data)}')
+            self.stdout.write(f"Total Categories: {len(self.data)}")
             for c in self.data:
-                fields = c['fields']
-                parent_id = fields.pop('parent')
+                fields = c["fields"]
+                parent_id = fields.pop("parent")
                 if parent_id:
-                    fields['parent'] = self._get_parent(parent_id)
-                cat = self._get_cat(slugify(fields['name']), fields.get('parent', None))
+                    fields["parent"] = self._get_parent(parent_id)
+                cat = self._get_cat(slugify(fields["name"]), fields.get("parent", None))
                 if cat is not None:
                     self.stdout.write(f'Updating: {fields["slug"]}')
                     for attr, value in fields.items():
-                        if attr != 'slug' and hasattr(cat, attr):
+                        if attr != "slug" and hasattr(cat, attr):
                             setattr(cat, attr, value)
                     cat.save()
                 else:
@@ -63,9 +66,11 @@ class Command(BaseCommand):
                 self.processed_cats.add(cat.pk)
 
             # set non processed cats to inactive
-            inactive_cats = Category.objects.exclude(id__in=self.processed_cats).filter(is_active=True)
-            self.stdout.write(f'\nInactive categories {len(inactive_cats)}')
-            inactive_cats.update(**{'is_active': False})
+            inactive_cats = Category.objects.exclude(id__in=self.processed_cats).filter(
+                is_active=True
+            )
+            self.stdout.write(f"\nInactive categories {len(inactive_cats)}")
+            inactive_cats.update(**{"is_active": False})
             active_cats = Category.objects.filter(is_active=True)
-            self.stdout.write(f'\nActive categories {len(active_cats)}')
-            self.stdout.write('\nDone!')
+            self.stdout.write(f"\nActive categories {len(active_cats)}")
+            self.stdout.write("\nDone!")

@@ -2,10 +2,9 @@
 # Copyright (C) 2020 - 2021 Gemeente Amsterdam
 import inspect
 
-from django.core.management import BaseCommand
-
 from apps.dataset import sources
 from apps.dataset.base import AreaLoader
+from django.core.management import BaseCommand
 
 
 class Command(BaseCommand):
@@ -24,5 +23,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data_loaders = self._get_data_loaders()
 
-        self.stdout.write('The following AreaTypes can be loaded:')
+        self.stdout.write("The following AreaTypes can be loaded:")
         self.stdout.write(repr(list(data_loaders.keys())))

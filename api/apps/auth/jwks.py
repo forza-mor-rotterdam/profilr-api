@@ -27,7 +27,7 @@ def check_update_keyset():
     """
     settings = get_settings()
     current_time = time.time()
-    if current_time - _keyset_last_update >= settings['MIN_INTERVAL_KEYSET_UPDATE']:
+    if current_time - _keyset_last_update >= settings["MIN_INTERVAL_KEYSET_UPDATE"]:
         init_keyset()
 
 
@@ -40,14 +40,14 @@ def init_keyset():
     _keyset = JWKSet()
     settings = get_settings()
 
-    if settings.get('JWKS'):
-        load_jwks(settings['JWKS'])
+    if settings.get("JWKS"):
+        load_jwks(settings["JWKS"])
 
-    if settings.get('JWKS_URL'):
-        load_jwks_from_url(settings['JWKS_URL'])
+    if settings.get("JWKS_URL"):
+        load_jwks_from_url(settings["JWKS_URL"])
 
-    if len(_keyset['keys']) == 0:
-        raise AuthConfigurationError('No keys loaded!')
+    if len(_keyset["keys"]) == 0:
+        raise AuthConfigurationError("No keys loaded!")
 
 
 def load_jwks(jwks):
