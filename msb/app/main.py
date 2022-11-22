@@ -74,10 +74,7 @@ async def mutatieregels(
     melding = melding_dict.get(int(item_id))
     if not melding:
         return JSONResponse(status_code=404, content={"message": "Item not found"})
-    return {
-        "success": True,
-        "result": melding,
-    }
+    return melding
 
 
 @app.get("/sbmob/api/gebruikerinfo")

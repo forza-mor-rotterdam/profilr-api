@@ -1,4 +1,5 @@
 from apps.incidents.models.mixins import CreatedUpdatedModel
+from apps.status.managers import BulkCreateSignalsManager
 from django.contrib.gis.db import models
 
 
@@ -17,6 +18,8 @@ class Status(CreatedUpdatedModel):
 
     send_email = models.BooleanField(default=False)
 
+    objects = BulkCreateSignalsManager()
+
     class Meta:
         verbose_name_plural = "Statuses"
         get_latest_by = "datetime"
@@ -24,3 +27,8 @@ class Status(CreatedUpdatedModel):
 
     def __str__(self):
         return str(self.text)
+
+    def save(self, *args, **kwargs):
+        print(self.id)
+        print(self.created_at)
+        super().save(*args, **kwargs)

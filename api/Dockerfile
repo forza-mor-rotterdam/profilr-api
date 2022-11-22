@@ -47,6 +47,10 @@ COPY deploy /deploy/
 
 RUN mkdir -p /media && mkdir -p /static && chown 2000 /media && chown 2000 /static
 
+RUN chmod +x /deploy/docker-entrypoint.sh && chown root:root /deploy/docker-entrypoint.sh
+
 USER 2000
 
 RUN SECRET_KEY=$DJANGO_SECRET_KEY python manage.py collectstatic --no-input
+
+CMD ["bash", "/deploy/docker-entrypoint.sh"]

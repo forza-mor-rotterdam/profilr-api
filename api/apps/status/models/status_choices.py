@@ -2,7 +2,7 @@ from django.contrib.gis.db import models
 
 
 class StatusChoices(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
 
     class Meta:
         verbose_name_plural = "Status choices"

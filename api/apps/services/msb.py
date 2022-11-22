@@ -1,4 +1,7 @@
+import json
+
 import requests
+from apps.categories.utils import sync_categories
 from django.conf import settings
 from django.core.cache import cache
 
@@ -85,12 +88,18 @@ class MSBService:
     @staticmethod
     def get_wijken(user_token):
         url = f"{MSBService.url_base}/wijken"
-        return MSBService.do_request(url, user_token, cache_timeout=60 * 60 * 24)
+        return MSBService.do_request(url, user_token, no_cache=True)
 
     @staticmethod
     def get_onderwerpgroepen(user_token):
         url = f"{MSBService.url_base}/onderwerpgroepen"
-        return MSBService.do_request(url, user_token, cache_timeout=60 * 60 * 24)
+        response = MSBService.do_request(url, user_token, no_cache=True)
+        if response.get("success") and hash(json.dumps(response)) != cache.get(
+            "onderwerpgroepen"
+        ):
+            sync_categories(response.get("result", []))
+            cache.set("onderwerpgroepen", hash(json.dumps(response)), None)
+        return response
 
     @staticmethod
     def get_afdelingen(user_token):

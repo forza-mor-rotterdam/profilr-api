@@ -166,8 +166,8 @@
         "pk": 19,
         "fields": {
             "parent": 12,
-            "slug": "huiscontainergfetgft-niet-geleegd",
-            "name": "Huiscontainer(gfe+t/gft) niet geleegd"
+            "slug": "huiscontainer-gfetgft-niet-geleegd",
+            "name": "Huiscontainer (gfe+t/gft) niet geleegd"
         }
     },
     {
@@ -175,8 +175,8 @@
         "pk": 20,
         "fields": {
             "parent": 12,
-            "slug": "huiscontainerpapier-niet-geleegd",
-            "name": "Huiscontainer(papier) niet geleegd"
+            "slug": "huiscontainer-papier-niet-geleegd",
+            "name": "Huiscontainer (papier) niet geleegd"
         }
     },
     {
@@ -184,8 +184,8 @@
         "pk": 21,
         "fields": {
             "parent": 12,
-            "slug": "huiscontainerrest-niet-geleegd",
-            "name": "Huiscontainer(rest) niet geleegd"
+            "slug": "huiscontainer-rest-niet-geleegd",
+            "name": "Huiscontainer (rest) niet geleegd"
         }
     },
     {
@@ -194,7 +194,7 @@
         "fields": {
             "parent": 12,
             "slug": "papiercontainer-kapot",
-            "name": "papiercontainer kapot"
+            "name": "Papiercontainer kapot"
         }
     },
     {
@@ -203,7 +203,7 @@
         "fields": {
             "parent": 12,
             "slug": "papiercontainer-vol",
-            "name": "papiercontainer vol"
+            "name": "Papiercontainer vol"
         }
     },
     {
@@ -613,15 +613,6 @@
     },
     {
         "model": "categories.category",
-        "pk": 69,
-        "fields": {
-            "parent": 67,
-            "slug": "melding-op-begraafplaats",
-            "name": "Melding op begraafplaats"
-        }
-    },
-    {
-        "model": "categories.category",
         "pk": 70,
         "fields": {
             "parent": 67,
@@ -978,15 +969,6 @@
             "parent": 104,
             "slug": "honden-uitlaatzone",
             "name": "honden-uitlaatzone"
-        }
-    },
-    {
-        "model": "categories.category",
-        "pk": 110,
-        "fields": {
-            "parent": 104,
-            "slug": "kerstboom-op-straat",
-            "name": "Kerstboom op straat"
         }
     },
     {

@@ -1,3 +1,4 @@
+from apps.categories.viewsets import CategoryViewSet, SubCategoryViewSet
 from apps.incidents.viewsets import IncidentViewSet
 from apps.locations.viewsets import BuurtViewSet, WijkViewSet
 from django.contrib import admin
@@ -8,10 +9,8 @@ router = DefaultRouter()
 router.register(r"incidents", IncidentViewSet, basename="incidents")
 router.register(r"wijken", WijkViewSet, basename="wijken")
 router.register(r"buurten", BuurtViewSet, basename="buurten")
-
-# v1_urls = (
-#     router.urls,
-# )
+router.register(r"categories", CategoryViewSet, basename="categories")
+router.register(r"sub-categories", SubCategoryViewSet, basename="sub-categories")
 
 urlpatterns = [
     # Used to determine API health when deploying

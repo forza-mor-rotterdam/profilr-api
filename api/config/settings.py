@@ -334,4 +334,4 @@ PDOK_API_URL = os.getenv("PDOK_API_URL", "https://geodata.nationaalgeoregister.n
 # Default pdok municipalities
 DEFAULT_PDOK_MUNICIPALITIES = os.getenv("DEFAULT_PDOK_MUNICIPALITIES", "").split(",")
 
-GEMEENTECODE = "GM0599"
+GEMEENTE_CODE = "GM0599"

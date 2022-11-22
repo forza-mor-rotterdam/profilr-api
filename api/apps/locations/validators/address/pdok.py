@@ -14,18 +14,20 @@ class PDOKAddressValidation(BaseAddressValidation):
     def _search_result_to_address(self, result):
         mapping = {
             # PDOK_key: sia_key,
-            "straatnaam": "openbare_ruimte",
+            "straatnaam": "straatnaam",
             "postcode": "postcode",
             "huisnummer": "huisnummer",
             "huisletter": "huisletter",
-            "huisnummertoevoeging": "huisnummer_toevoeging",
-            "woonplaatsnaam": "woonplaats",
+            "huisnummertoevoeging": "huisnummertoevoeging",
+            "woonplaatsnaam": "woonplaatsnaam",
         }
 
         sia_address_dict = {}
         for PDOK_key, sia_key in mapping.items():
             sia_address_dict[sia_key] = result[PDOK_key] if PDOK_key in result else ""
         sia_address_dict["geometrie"] = result["centroide_ll"]
+        sia_address_dict["buurt_code"] = result["buurtcode"]
+        # sia_address_dict["wijk_code"] = result["wijkcode"]
         return sia_address_dict
 
     def _pdok_request_query_params(self, address, lon=None, lat=None):

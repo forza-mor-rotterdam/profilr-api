@@ -19,5 +19,10 @@ class Category(models.Model):
         editable=False,
     )
     name = models.CharField(max_length=255)
+    external_id = models.CharField(max_length=255, default="")
     public_name = models.CharField(max_length=255, null=True, blank=True)
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["name"]
+        unique_together = ("parent", "external_id")

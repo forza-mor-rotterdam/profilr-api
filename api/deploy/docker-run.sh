@@ -30,8 +30,6 @@ echo "from django.contrib.auth import get_user_model; User = get_user_model(); U
 # Collect static
 python manage.py collectstatic --no-input
 
-python manage.py loaddata fixture
-
 if [[ ${INITIALIZE_WITH_DUMMY_DATA:-0} == 1 ]]; then
   echo "Load dummy data"
   python manage.py load_areas stadsdeel

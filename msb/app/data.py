@@ -31,7 +31,7 @@ def meldingen():
         },
         {
             "list": {
-                "spoed": False,
+                "spoed": True,
                 "datumMelding": "2022-09-28T09:45:24",
                 "datumInbehandeling": None,
                 "werkdagenSindsRegistratie": 10.0,

@@ -87,8 +87,8 @@ services:
       - ./api/deploy/docker-run.sh:/docker-run.sh
     networks:
       - profilr_network
-    command:
-      - /docker-run.sh
+    # command:
+    #   - "/deploy/docker-entrypoint.sh"
   msb:
     build: ./msb
     ports:

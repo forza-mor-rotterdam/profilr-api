@@ -2,34 +2,7 @@ from apps.incidents.models import Incident
 from apps.locations.serializers import LocationSerializer
 from apps.locations.utils.rd_convert import rd_to_wgs
 from apps.services.msb import MSBService
-from apps.status.models import StatusChoices
 from rest_framework import serializers
-
-
-class IncidentListSerializer(serializers.ListSerializer):
-    class Meta:
-        model = Incident
-        fields = (
-            "id",
-            "incident_date_start",
-            "location",
-            "status",
-            "priority",
-            "text",
-            "extra_properties",
-            "created_at",
-            "updated_at",
-        )
-        read_only_fields = (
-            "id",
-            "location",
-            "status",
-            "priority",
-            "text",
-            "extra_properties",
-            "created_at",
-            "updated_at",
-        )
 
 
 class AttachmentSerialzer(serializers.Serializer):
@@ -72,18 +45,18 @@ class InsidentMSBFieldsMixin:
         return serializer.data
 
     def get_status(self, obj):
-        default_status_name = (
-            StatusChoices.objects.all().first().name
-            if StatusChoices.objects.all()
-            else "Nieuw"
-        )
-        status = obj.extra_properties.get("raw_list_item", {}).get(
-            "status", default_status_name
-        )
-        print(status)
+        status = obj.msb_data.get("status", "Nieuw")
         return {
             "state": status,
         }
+
+    def get_omschrijving(self, obj):
+        user_token = MSBService.get_user_token_from_request(self.context["request"])
+        return (
+            MSBService.get_detail(obj.external_id, user_token)
+            .get("result", {})
+            .get("omschrijving", "")
+        )
 
     # def get_category(self, obj):
     #     user_token = MSBService.get_user_token_from_request(self.context['request'])
@@ -102,12 +75,45 @@ class InsidentMSBFieldsMixin:
     #     return {}
 
 
-class IncidentSerializer(InsidentMSBFieldsMixin, serializers.ModelSerializer):
+class IncidentListSerializer(InsidentMSBFieldsMixin, serializers.ModelSerializer):
+    attachments = serializers.SerializerMethodField(read_only=True)
+    location = serializers.SerializerMethodField(read_only=True)
+    status = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Incident
+        fields = (
+            "id",
+            "incident_date_start",
+            "location",
+            "status",
+            "priority",
+            "attachments",
+            "external_id",
+        )
+        read_only_fields = (
+            "id",
+            "incident_date_start",
+            "location",
+            "status",
+            "priority",
+            "attachments",
+            "external_id",
+        )
+
+
+class IncidentSerializer(IncidentListSerializer):
     attachments = serializers.SerializerMethodField(
-        source="get_attachments", read_only=True
+        method_name="get_attachments", read_only=True
     )
-    location = serializers.SerializerMethodField(source="get_location", read_only=True)
-    status = serializers.SerializerMethodField(source="get_status", read_only=True)
+    location = serializers.SerializerMethodField(
+        method_name="get_location", read_only=True
+    )
+    status = serializers.SerializerMethodField(method_name="get_status", read_only=True)
+    spoed = serializers.SerializerMethodField(method_name="get_spoed", read_only=True)
+    text = serializers.SerializerMethodField(
+        method_name="get_omschrijving", read_only=True
+    )
 
     class Meta:
         model = Incident
