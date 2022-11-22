@@ -46,12 +46,12 @@ jobs:
           no-cache: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      
-      #- name: Start rollout on k8s platform
-      #  uses: actions-hub/kubectl@master
-      #  env:
-      #    KUBE_HOST: ${{ secrets.KUBE_HOST }}
-      #    KUBE_CERTIFICATE: ${{ secrets.KUBE_CERTIFICATE }}
-      #    KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
-      #  with:
-      #    args: rollout restart deployment/profilr-deployment
+
+      - name: Start rollout on k8s platform
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_HOST: ${{ secrets.KUBE_HOST }}
+          KUBE_CERTIFICATE: ${{ secrets.KUBE_CERTIFICATE }}
+          KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+        with:
+          args: rollout restart deployment/app --namespace=profilr-api-prod
