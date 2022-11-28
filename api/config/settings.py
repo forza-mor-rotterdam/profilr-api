@@ -53,6 +53,7 @@ PROJECT_APPS = [
     "apps.locations",
     "apps.services",
     "apps.status",
+    "apps.users",
 ]
 
 INSTALLED_APPS = [
@@ -76,6 +77,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_gis",
     "storages",
+    "health_check",
+    "health_check.cache",
+    "health_check.storage",
+    "health_check.db",
+    "health_check.contrib.migrations",
 ] + PROJECT_APPS
 
 MIDDLEWARE = [

@@ -170,3 +170,4 @@ zipp==3.8.1
 exifread
 piexif
 GPSPhoto
+django-health-check
