@@ -133,6 +133,14 @@ DATABASES = {
     },
 }  # noqa
 
+
+# Django cache settings
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
+
 # Django security settings
 SECURE_SSL_REDIRECT = False
 SECURE_REDIRECT_EXEMPT = [
@@ -333,16 +341,3 @@ PDOK_API_URL = os.getenv("PDOK_API_URL", "https://geodata.nationaalgeoregister.n
 DEFAULT_PDOK_MUNICIPALITIES = os.getenv("DEFAULT_PDOK_MUNICIPALITIES", "").split(",")
 
 GEMEENTE_CODE = "GM0599"
-
-REDIS_URL = "redis://redis:6379"
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "SOCKET_CONNECT_TIMEOUT": 5,
-            "SOCKET_TIMEOUT": 5,
-        },
-    }
-}
