@@ -171,3 +171,4 @@ exifread
 piexif
 GPSPhoto
 django-health-check
+django_redis
