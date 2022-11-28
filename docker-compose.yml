@@ -74,7 +74,7 @@ services:
   api:
     build: ./api
     ports:
-      - "10443:8000"
+      - "8080:8000"
     links:
       - database
       # - dex
@@ -84,11 +84,11 @@ services:
     volumes:
       - ./api:/app
       - ./api/deploy:/deploy
-      - ./api/deploy/docker-run.sh:/docker-run.sh
+      - ./api/deploy/docker-entrypoint.development.sh:/docker-entrypoint.development.sh
     networks:
       - profilr_network
-    # command:
-    #   - "/deploy/docker-entrypoint.sh"
+    command:
+      - "/deploy/docker-entrypoint.development.sh"
   # msb:
   #   build: ./msb
   #   ports:

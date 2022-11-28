@@ -17,10 +17,12 @@ class MSBService:
     def get_user_token_from_request(request):
         auth_header = request.META.get("HTTP_AUTHORIZATION")
         auth_parts = auth_header.split(" ") if auth_header else []
-        if settings.MSB_USER_TOKEN:
-            return settings.MSB_USER_TOKEN
+
         if len(auth_parts) == 2 and auth_parts[0] == "Bearer":
             return auth_parts[1]
+
+        if settings.MSB_USER_TOKEN:
+            return settings.MSB_USER_TOKEN
 
     @staticmethod
     def do_request(
@@ -43,8 +45,10 @@ class MSBService:
                 headers=headers,
                 timeout=MSBService.default_timeout,
             )
-            json_response = response.json()
-            cache.set(url, json_response, cache_timeout)
+            response.raise_for_status()
+            if int(response.status_code) >= 200 and int(response.status_code) < 300:
+                json_response = response.json()
+                cache.set(url, json_response, cache_timeout)
         else:
             print(f"fetch from cache: {url}")
         return json_response
@@ -59,19 +63,15 @@ class MSBService:
         response_data = MSBService.do_request(
             url, user_token=None, method=MSBService.POST, data=data, no_cache=True
         )
-        print(response_data)
         return bool(response_data.get("success")), response_data.get("result")
 
     @staticmethod
     def get_user_info(user_token):
         url = f"{MSBService.url_base}/gebruikerinfo"
-        return MSBService.do_request(url, user_token, no_cache=True)
+        return MSBService.do_request(url, user_token, cache_timeout=60)
 
     @staticmethod
     def get_list(user_token, data={}, no_cache=False):
-        default_data = {"x": 92441, "y": 437718, "radius": 200}
-        data = data.dict()
-        data.update(default_data)
         url = f"{MSBService.url_base}/msb/openmeldingen"
         return MSBService.do_request(url, user_token, MSBService.POST, data, no_cache)
 
@@ -92,7 +92,7 @@ class MSBService:
 
     @staticmethod
     def get_onderwerpgroepen(user_token):
-        url = f"{MSBService.url_base}/onderwerpgroepen"
+        url = f"{MSBService.url_base}/msb/onderwerpgroepen"
         response = MSBService.do_request(url, user_token, no_cache=True)
         if response.get("success") and hash(json.dumps(response)) != cache.get(
             "onderwerpgroepen"
@@ -103,5 +103,5 @@ class MSBService:
 
     @staticmethod
     def get_afdelingen(user_token):
-        url = f"{MSBService.url_base}/afdelingen"
+        url = f"{MSBService.url_base}/msb/afdelingen"
         return MSBService.do_request(url, user_token, cache_timeout=60 * 60 * 24)
