@@ -16,8 +16,12 @@ class MSBAuthBackend:
         user_token = MSBService.get_user_token_from_request(request)
 
         if not user_token:
-            raise exceptions.AuthenticationFailed("Credetials incomplete!")
-        user_info = MSBService.get_user_info(user_token)
+            raise exceptions.AuthenticationFailed("No token provided!")
+        try:
+            user_info = MSBService.get_user_info(user_token)
+        except Exception:
+            raise exceptions.AuthenticationFailed("Authentication failt!")
+
         if not user_info.get("success"):
             raise exceptions.AuthenticationFailed("Login failt")
 
@@ -104,6 +108,6 @@ class JWTAuthBackend:
 
 
 if settings.LOCAL_DEVELOPMENT_AUTHENTICATION:
-    AuthBackend = JWTAuthBackend
+    AuthBackend = MSBAuthBackend
 else:
     AuthBackend = MSBAuthBackend

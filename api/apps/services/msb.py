@@ -21,9 +21,6 @@ class MSBService:
         if len(auth_parts) == 2 and auth_parts[0] == "Bearer":
             return auth_parts[1]
 
-        if settings.MSB_USER_TOKEN:
-            return settings.MSB_USER_TOKEN
-
     @staticmethod
     def do_request(
         url,
