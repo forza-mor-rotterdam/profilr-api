@@ -65,7 +65,7 @@ class MSBService:
     @staticmethod
     def get_user_info(user_token):
         url = f"{MSBService.url_base}/gebruikerinfo"
-        return MSBService.do_request(url, user_token, cache_timeout=60)
+        return MSBService.do_request(url, user_token, no_cache=True)
 
     @staticmethod
     def get_list(user_token, data={}, no_cache=False):
