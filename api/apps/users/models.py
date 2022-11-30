@@ -20,7 +20,7 @@ class Profile(CreatedUpdatedModel):
         on_delete=models.CASCADE,
     )
 
-    filters = models.JSONField(null=True)
+    filters = models.JSONField(default=dict)
 
     def __str__(self):
         return self.user.username
