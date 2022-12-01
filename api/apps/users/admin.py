@@ -19,5 +19,10 @@ class ProjectUserAdmin(UserAdmin):
     inlines = (ProfileInline,)
 
 
+class ProfileAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.unregister(User)
 admin.site.register(User, ProjectUserAdmin)
+admin.site.register(Profile, ProfileAdmin)
