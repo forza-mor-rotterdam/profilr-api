@@ -16,7 +16,9 @@ LOGGING_LEVEL = os.getenv("LOGGING_LEVEL", "INFO")
 
 # localhost and 127.0.0.1 are allowed because the deployment process checks the health endpoint with a
 # request to localhost:port
-DEFAULT_ALLOWED_HOSTS = "localhost,127.0.0.1,.profilr.forzamor.nl"
+DEFAULT_ALLOWED_HOSTS = (
+    "localhost,127.0.0.1,.profilr.forzamor.nl,.profilr-acc.forzamor.nl"
+)
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", DEFAULT_ALLOWED_HOSTS).split(",")
 
 INTERNAL_IPS = ("127.0.0.1", "0.0.0.0")
