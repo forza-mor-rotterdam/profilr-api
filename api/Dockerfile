@@ -30,6 +30,7 @@ RUN apt-get update \
                 libpango1.0-0 \
                 gcc \
                 graphviz \
+                git \
     && pip install -r /requirements.txt \
     && apt-get purge -y gcc \
     && rm -rf /var/lib/apt/lists/*

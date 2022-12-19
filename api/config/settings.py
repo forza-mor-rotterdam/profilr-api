@@ -1,4 +1,5 @@
 import os
+import sys
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -21,11 +22,6 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", DEFAULT_ALLOWED_HOSTS).split(",")
 
 INTERNAL_IPS = ("127.0.0.1", "0.0.0.0")
 
-CORS_ALLOWED_ORIGINS = [
-    origin.strip() for origin in os.getenv("CORS_ALLOWED_ORIGINS", "null").split(",")
-]
-CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", True) in TRUE_VALUES
-
 SITE_ID = 1
 SITE_NAME = os.getenv("SITE_NAME", "DefaultName API")
 SITE_DOMAIN = os.getenv("SITE_DOMAIN", "localhost")
@@ -42,7 +38,18 @@ BOUNDING_BOX = [
 # Django security settings
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = "DENY"
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_PRELOAD = True
+CORS_ORIGIN_WHITELIST = ()
+CORS_ORIGIN_ALLOW_ALL = False
+USE_X_FORWARDED_HOST = True
+CSRF_COOKIE_HTTPONLY = True
+# SECURE_SSL_REDIRECT = not DEBUG
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 # Application definition
 PROJECT_APPS = [
@@ -51,7 +58,6 @@ PROJECT_APPS = [
     "apps.health",
     "apps.incidents",
     "apps.locations",
-    "apps.services",
     "apps.status",
     "apps.users",
 ]
@@ -85,6 +91,7 @@ INSTALLED_APPS = [
 ] + PROJECT_APPS
 
 MIDDLEWARE = [
+    "profilr_api_services.middleware.ApiServiceExceptionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -95,6 +102,26 @@ MIDDLEWARE = [
     "django.contrib.sites.middleware.CurrentSiteMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+# django-permissions-policy settings
+PERMISSIONS_POLICY = {
+    "accelerometer": [],
+    "ambient-light-sensor": [],
+    "autoplay": [],
+    "camera": [],
+    "display-capture": [],
+    "document-domain": [],
+    "encrypted-media": [],
+    "fullscreen": [],
+    "geolocation": [],
+    "gyroscope": [],
+    "interest-cohort": [],
+    "magnetometer": [],
+    "microphone": [],
+    "midi": [],
+    "payment": [],
+    "usb": [],
+}
 
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
@@ -132,15 +159,6 @@ DATABASES = {
         "PORT": DATABASE_PORT,  # noqa
     },
 }  # noqa
-
-# Django security settings
-SECURE_SSL_REDIRECT = False
-SECURE_REDIRECT_EXEMPT = [
-    r"^status/",
-]  # Allow health checks on localhost.
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
 LOCAL_DEVELOPMENT_AUTHENTICATION = (
     os.getenv("LOCAL_DEVELOPMENT_AUTHENTICATION", True) in TRUE_VALUES
@@ -345,4 +363,29 @@ CACHES = {
             "SOCKET_TIMEOUT": 5,
         },
     }
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
 }

@@ -1,7 +1,7 @@
 from apps.incidents.models import Incident
 from apps.locations.serializers import LocationSerializer
 from apps.locations.utils.rd_convert import rd_to_wgs
-from apps.services.msb import MSBService
+from profilr_api_services import msb_api_service
 from rest_framework import serializers
 
 
@@ -11,12 +11,10 @@ class AttachmentSerialzer(serializers.Serializer):
 
 class InsidentMSBFieldsMixin:
     def get_attachments(self, obj):
-        user_token = MSBService.get_user_token_from_request(self.context["request"])
-        return (
-            MSBService.get_detail(obj.external_id, user_token)
-            .get("result", {})
-            .get("fotos", [])
+        user_token = msb_api_service.get_user_token_from_request(
+            self.context["request"]
         )
+        return msb_api_service.get_detail(obj.external_id, user_token).get("fotos", [])
 
     def get_location(self, obj):
         if not obj.location:
@@ -51,15 +49,15 @@ class InsidentMSBFieldsMixin:
         }
 
     def get_omschrijving(self, obj):
-        user_token = MSBService.get_user_token_from_request(self.context["request"])
-        return (
-            MSBService.get_detail(obj.external_id, user_token)
-            .get("result", {})
-            .get("omschrijving", "")
+        user_token = msb_api_service.get_user_token_from_request(
+            self.context["request"]
+        )
+        return msb_api_service.get_detail(obj.external_id, user_token).get(
+            "omschrijving", ""
         )
 
     # def get_category(self, obj):
-    #     user_token = MSBService.get_user_token_from_request(self.context['request'])
+    #     user_token = msb_api_service.get_user_token_from_request(self.context['request'])
     #     if hasattr(obj, "melding"):
 
     #         msb_data = json.loads(obj.melding.msb_list_item)
