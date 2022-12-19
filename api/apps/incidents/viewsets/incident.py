@@ -5,10 +5,10 @@ from apps.incidents.filtersets import IncidentFilterSet
 from apps.incidents.models import Incident
 from apps.incidents.serializers import IncidentListSerializer, IncidentSerializer
 from apps.locations.models import Wijk
-from apps.services.msb import MSBService
 from deepdiff import DeepDiff
 from django.utils.text import slugify
 from django_filters.rest_framework import DjangoFilterBackend
+from profilr_api_services import msb_api_service
 from rest_framework import viewsets
 from rest_framework.response import Response
 
@@ -41,7 +41,7 @@ class IncidentViewSet(viewsets.ModelViewSet):
     filterset_class = IncidentFilterSet
 
     def list(self, request, *args, **kwargs):
-        user_token = MSBService.get_user_token_from_request(request)
+        user_token = msb_api_service.get_user_token_from_request(request)
 
         trans_wijken = {
             "Rotterdam Centrum": "Stadscentrum",
@@ -56,7 +56,7 @@ class IncidentViewSet(viewsets.ModelViewSet):
         ]
         print(len(wijken_names))
         print(wijken_names)
-        wijken_msb = MSBService.get_wijken(user_token).get("result", [])
+        wijken_msb = msb_api_service.get_wijken(user_token)
         wijken_msb_codes = [
             w.get("omschrijving")
             for w in wijken_msb
@@ -65,9 +65,7 @@ class IncidentViewSet(viewsets.ModelViewSet):
         print(len(wijken_msb_codes))
         print(wijken_msb_codes)
 
-        data = MSBService.get_list(user_token, request.GET, no_cache=True).get(
-            "result", []
-        )
+        data = msb_api_service.get_list(user_token, request.GET, no_cache=True)
 
         external_ids = []
         for d in data:
