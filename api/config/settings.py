@@ -35,21 +35,35 @@ BOUNDING_BOX = [
     float(i) for i in os.getenv("BOUNDING_BOX", "3.3,50.7,7.3,53.6").split(",")
 ]
 
+
 # Django security settings
 SECURE_BROWSER_XSS_FILTER = True
+SECURE_REFERRER_POLICY = "strict-origin"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_PRELOAD = True
 CORS_ORIGIN_WHITELIST = ()
 CORS_ORIGIN_ALLOW_ALL = False
 USE_X_FORWARDED_HOST = True
+SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
-# SECURE_SSL_REDIRECT = not DEBUG
-# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_NAME = "__Secure-sessionid" if not DEBUG else "sessionid"
+CSRF_COOKIE_NAME = "__Secure-csrftoken" if not DEBUG else "csrftoken"
+SESSION_COOKIE_SAMESITE = "Strict" if not DEBUG else "Lax"
+CSRF_COOKIE_SAMESITE = "Strict" if not DEBUG else "Lax"
+
+# Settings for Content-Security-Policy header
+CSP_DEFAULT = ("'self'",)
+CSP_DEFAULT_SRC = CSP_DEFAULT
+CSP_FRAME_ANCESTORS = CSP_DEFAULT
+CSP_SCRIPT_SRC = CSP_DEFAULT
+CSP_IMG_SRC = CSP_DEFAULT
+CSP_STYLE_SRC = CSP_DEFAULT
+CSP_CONNECT_SRC = CSP_DEFAULT
 
 # Application definition
 PROJECT_APPS = [
@@ -94,6 +108,8 @@ MIDDLEWARE = [
     "profilr_api_services.middleware.ApiServiceExceptionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "django_permissions_policy.PermissionsPolicyMiddleware",
+    "csp.middleware.CSPMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
