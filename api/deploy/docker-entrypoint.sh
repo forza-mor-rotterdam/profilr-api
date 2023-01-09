@@ -8,8 +8,9 @@ python manage.py collectstatic --no-input
 
 chmod -R 777 /static
 
-echo Apply migrations
-python manage.py migrate --noinput
+# echo Apply migrations
+# python manage.py migrate --noinput
+python manage.py migrate users 0002
 
 echo Create superuser
 python manage.py createsuperuser --noinput || true
