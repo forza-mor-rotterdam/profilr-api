@@ -12,9 +12,14 @@ def show_profiles(request):
         )
         users = cursor.fetchall()
 
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT id FROM public.users_profile")
-        profiles = cursor.fetchall()
+    profiles = []
+    error = None
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT id FROM public.users_profile")
+            profiles = cursor.fetchall()
+    except Exception as e:
+        error = f"Error: {e}"
 
     # return row
     return render(
@@ -22,6 +27,7 @@ def show_profiles(request):
         "profiles.html",
         {
             "profiles": profiles,
+            "error": error,
             "users": users,
         },
     )
