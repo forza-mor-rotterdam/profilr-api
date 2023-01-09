@@ -17,7 +17,9 @@ class Profile(CreatedUpdatedModel):
         to=User,
         related_name="profile",
         verbose_name=_("profile"),
-        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
     )
 
     filters = models.JSONField(default=dict)
