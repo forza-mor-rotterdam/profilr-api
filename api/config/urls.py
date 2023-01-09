@@ -1,6 +1,7 @@
 from apps.categories.viewsets import CategoryViewSet, SubCategoryViewSet
 from apps.incidents.viewsets import IncidentViewSet
 from apps.locations.viewsets import BuurtViewSet, WijkViewSet
+from apps.users.views import show_profiles
 from apps.users.viewsets import ProfileViewSet
 from django.contrib import admin
 from django.urls import include, path
@@ -21,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("v1/", include((router.urls, "app"), namespace="v1")),
     path("health/", include("health_check.urls")),
+    path("profiles/", show_profiles, name="profiles"),
 ]
