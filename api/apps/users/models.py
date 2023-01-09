@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import gettext as _
 
 User = get_user_model()
 
@@ -12,12 +13,12 @@ class Profile(CreatedUpdatedModel):
     The profile model for a user
     """
 
-    # user = models.OneToOneField(
-    #     to=User,
-    #     related_name="profile",
-    #     verbose_name=_("profile"),
-    #     on_delete=models.CASCADE,
-    # )
+    user = models.OneToOneField(
+        to=User,
+        related_name="profile",
+        verbose_name=_("profile"),
+        on_delete=models.CASCADE,
+    )
 
     filters = models.JSONField(default=dict)
 
