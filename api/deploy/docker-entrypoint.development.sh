@@ -9,6 +9,7 @@ python manage.py collectstatic --no-input
 chmod -R 777 /static
 
 echo Apply migrations
+python manage.py migrate db zero
 python manage.py migrate --noinput
 
 echo Create superuser
