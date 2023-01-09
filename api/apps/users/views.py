@@ -13,7 +13,7 @@ def show_profiles(request):
         users = cursor.fetchall()
 
     with connection.cursor() as cursor:
-        cursor.execute("SELECT id, user_id, filters FROM public.users_profile")
+        cursor.execute("SELECT id FROM public.users_profile")
         profiles = cursor.fetchall()
 
     # return row
