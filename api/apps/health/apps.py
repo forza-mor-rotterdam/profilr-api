@@ -7,6 +7,7 @@ class HealthConfig(AppConfig):
     verbose_name = "Health"
 
     def ready(self):
-        from apps.health.custom_checks import MSBAPIHealthCheck
+        from apps.health.custom_checks import DatabaseHealthCheck, MSBAPIHealthCheck
 
         plugin_dir.register(MSBAPIHealthCheck)
+        plugin_dir.register(DatabaseHealthCheck)
