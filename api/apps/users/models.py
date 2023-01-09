@@ -17,15 +17,13 @@ class Profile(CreatedUpdatedModel):
         to=User,
         related_name="profile",
         verbose_name=_("profile"),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
 
     filters = models.JSONField(default=dict)
 
     def __str__(self):
-        return f"Profile with id: {self.id}"
+        return self.user.username
 
 
 @receiver(post_save, sender=User)
