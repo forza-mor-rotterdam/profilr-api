@@ -17,11 +17,11 @@ class BaseTaskWithRetry(celery.Task):
 def update_status(self, incident_id, user_token):
     print("task update_status START")
     from apps.incidents.models import Incident
-    from apps.services.msb import MSBService
     from apps.status.models import Status, StatusChoices
+    from profilr_api_services import msb_api_service
 
     instance = Incident.objects.get(id=incident_id)
-    data = MSBService.get_mutatieregels(instance.external_id, user_token).get("result")
+    data = msb_api_service.get_mutatieregels(instance.external_id, user_token)
 
     # print(status)
     # status_str_date = data.get(from_status_to_datefield_name.get(status, {}))
