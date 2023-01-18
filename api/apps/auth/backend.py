@@ -1,7 +1,7 @@
 import logging
 
+from apps.services import incident_api_service
 from django.contrib.auth.models import User
-from profilr_api_services import msb_api_service
 from rest_framework import exceptions
 
 logger = logging.getLogger(__name__)
@@ -10,12 +10,12 @@ logger = logging.getLogger(__name__)
 class MSBAuthBackend:
     @staticmethod  # noqa: C901
     def authenticate(request):
-        user_token = msb_api_service.get_user_token_from_request(request)
 
+        user_token = incident_api_service.get_user_token_from_request(request)
         if not user_token:
             raise exceptions.AuthenticationFailed("No token provided!")
         try:
-            user_info = msb_api_service.get_user_info(user_token)
+            user_info = incident_api_service.get_user_info(user_token)
         except Exception:
             raise exceptions.AuthenticationFailed("Authentication failt!")
 
