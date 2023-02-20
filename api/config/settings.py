@@ -209,7 +209,7 @@ REST_FRAMEWORK = dict(
 MSB_API_URL = os.getenv("MSB_API_URL")
 INCIDENT_API_URL = os.getenv("INCIDENT_API_URL", f"{MSB_API_URL}/sbmob/api")
 INCIDENT_API_HEALTH_CHECK_URL = os.getenv(
-    "INCIDENT_API_HEALTH_CHECK_URL", f"{MSB_API_URL}/health"
+    "INCIDENT_API_HEALTH_CHECK_URL", f"{MSB_API_URL}/logout"
 )
 INCIDENT_API_SERVICE = os.getenv(
     "INCIDENT_API_SERVICE", "profilr_api_services.IncidentAPIService"
