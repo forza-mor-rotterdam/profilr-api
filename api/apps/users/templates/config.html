@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Config{% endblock %}
+
+{% block body %}
+    {% for k, v in config.items %}
+    <dl>
+        <dt>{{ k }}</dt>
+        <dd>{{ v }}</dd>
+    </dl>
+    {% endfor %}
+
+{% endblock %}
