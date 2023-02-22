@@ -28,6 +28,7 @@ class Profile(CreatedUpdatedModel):
     )
 
     filters = models.JSONField(default=dict)
+    ui_settings = models.JSONField(default=dict)
 
     def __str__(self):
         return f"Profile with id: {self.id}"
