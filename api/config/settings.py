@@ -65,12 +65,7 @@ CSP_CONNECT_SRC = CSP_DEFAULT
 
 # Application definition
 PROJECT_APPS = [
-    "apps.categories",
-    "apps.dataset",
     "apps.health",
-    "apps.incidents",
-    "apps.locations",
-    "apps.status",
     "apps.users",
 ]
 
