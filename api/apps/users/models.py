@@ -31,7 +31,7 @@ class Profile(CreatedUpdatedModel):
     ui_settings = models.JSONField(default=dict)
 
     def __str__(self):
-        return self.user.username
+        return f"Profile with id: {self.id}"
 
 
 @receiver(post_save, sender=User)

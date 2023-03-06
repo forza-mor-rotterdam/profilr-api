@@ -1,0 +1,17 @@
+<html>
+    <head></head>
+    <body>
+    <h2>Users ({{users|length}})</h2>
+    {% for p in users %}
+    {{p}}<br><br>
+    {% endfor %}
+    <hr/>
+    <h2>Profiles ({{profiles|length}})</h2>
+    {% for p in profiles %}
+    {{p}}<br><br>
+    {% endfor %}
+    <hr/>
+    <h2>Error</h2>
+    {{error}}
+    </body>
+</html>
