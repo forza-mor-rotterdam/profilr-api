@@ -1,8 +1,6 @@
 import os
 import sys
 
-from django.core.exceptions import ImproperlyConfigured
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TRUE_VALUES = [True, "True", "true", "1"]
@@ -67,12 +65,7 @@ CSP_CONNECT_SRC = CSP_DEFAULT
 
 # Application definition
 PROJECT_APPS = [
-    "apps.categories",
-    "apps.dataset",
     "apps.health",
-    "apps.incidents",
-    "apps.locations",
-    "apps.status",
     "apps.users",
 ]
 
@@ -88,19 +81,14 @@ INSTALLED_APPS = [
     "django.contrib.gis",
     # Third party
     "corsheaders",
-    "django_celery_beat",
-    "django_celery_results",
     "django_extensions",
     "django_filters",
-    "djcelery_email",
-    "raven.contrib.django.raven_compat",
     "rest_framework",
     "rest_framework_gis",
-    "storages",
     "health_check",
     "health_check.cache",
     "health_check.storage",
-    # "health_check.db",
+    "health_check.db",
     "health_check.contrib.migrations",
 ] + PROJECT_APPS
 
@@ -176,6 +164,8 @@ DATABASES = {
     },
 }  # noqa
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 LOCAL_DEVELOPMENT_AUTHENTICATION = (
     os.getenv("LOCAL_DEVELOPMENT_AUTHENTICATION", True) in TRUE_VALUES
 )
@@ -194,131 +184,6 @@ STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), "static")
 MEDIA_URL = "/api/media/"
 MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), "media")
 
-AZURE_STORAGE_ENABLED = os.getenv("AZURE_STORAGE_ENABLED", False) in TRUE_VALUES
-SWIFT_STORAGE_ENABLED = os.getenv("SWIFT_ENABLED", False) in TRUE_VALUES
-
-if AZURE_STORAGE_ENABLED and SWIFT_STORAGE_ENABLED:
-    raise ImproperlyConfigured("Enable AzureStorage OR SwiftStorage, not both")
-
-if AZURE_STORAGE_ENABLED:
-    # Azure Settings
-    DEFAULT_FILE_STORAGE = "storages.backends.azure_storage.AzureStorage"
-
-    AZURE_ACCOUNT_NAME = os.getenv("AZURE_STORAGE_ACCOUNT_NAME")
-    AZURE_ACCOUNT_KEY = os.getenv("AZURE_STORAGE_ACCOUNT_KEY")
-    AZURE_URL_EXPIRATION_SECS = os.getenv("AZURE_STORAGE_URL_EXPIRATION_SECS", None)
-
-    AZURE_CONTAINER = os.getenv("AZURE_STORAGE_CONTAINER_NAME", "")  # Default container
-    AZURE_CONTAINERS = {
-        "main": {"azure_container": AZURE_CONTAINER},
-        "datawarehouse": {
-            "azure_container": os.getenv(
-                "DWH_AZURE_STORAGE_CONTAINER_NAME", AZURE_CONTAINER
-            )
-        },
-    }
-
-elif SWIFT_STORAGE_ENABLED:
-    DEFAULT_FILE_STORAGE = "swift.storage.SwiftStorage"
-
-    SWIFT_USERNAME = os.getenv("SWIFT_USERNAME")
-    SWIFT_PASSWORD = os.getenv("SWIFT_PASSWORD")
-    SWIFT_AUTH_URL = os.getenv("SWIFT_AUTH_URL")
-    SWIFT_TENANT_ID = os.getenv("SWIFT_TENANT_ID")
-    SWIFT_TENANT_NAME = os.getenv("SWIFT_TENANT_NAME")
-    SWIFT_REGION_NAME = os.getenv("SWIFT_REGION_NAME")
-    SWIFT_CONTAINER_NAME = os.getenv("SWIFT_CONTAINER_NAME")
-    SWIFT_TEMP_URL_KEY = os.getenv("SWIFT_TEMP_URL_KEY")
-    SWIFT_USE_TEMP_URLS = True
-
-    SWIFT = {
-        # These settings are used to create override the default Swift storage settings.
-        # Useful when writing to different ObjectStores
-        "datawarehouse": {
-            "api_username": os.getenv("DWH_SWIFT_USERNAME"),
-            "api_key": os.getenv("DWH_SWIFT_PASSWORD"),
-            "tenant_name": os.getenv("DWH_SWIFT_TENANT_NAME"),
-            "tenant_id": os.getenv("DWH_SWIFT_TENANT_ID"),
-            "container_name": os.getenv("DWH_SWIFT_CONTAINER_NAME"),
-            "auto_overwrite": os.getenv("DWH_SWIFT_AUTO_OVERWRITE", True),
-        },
-        "horeca": {
-            "api_username": os.getenv("HORECA_SWIFT_USERNAME"),
-            "api_key": os.getenv("HORECA_SWIFT_PASSWORD"),
-            "tenant_name": os.getenv("HORECA_SWIFT_TENANT_NAME"),
-            "tenant_id": os.getenv("HORECA_SWIFT_TENANT_ID"),
-            "container_name": os.getenv("HORECA_SWIFT_CONTAINER_NAME"),
-            "auto_overwrite": os.getenv("HORECA_SWIFT_AUTO_OVERWRITE", True),
-        },
-        "tdo": {
-            "api_username": os.getenv("TDO_SWIFT_USERNAME"),
-            "api_key": os.getenv("TDO_SWIFT_PASSWORD"),
-            "tenant_name": os.getenv("TDO_SWIFT_TENANT_NAME"),
-            "tenant_id": os.getenv("TDO_SWIFT_TENANT_ID"),
-            "container_name": os.getenv("TDO_SWIFT_CONTAINER_NAME"),
-            "auto_overwrite": os.getenv("TDO_SWIFT_AUTO_OVERWRITE", True),
-        },
-    }
-
-# Object store - Datawarehouse (DWH)
-DWH_MEDIA_ROOT = os.getenv("DWH_MEDIA_ROOT")
-
-# Using `HEALTH_MODEL` for health check endpoint.
-HEALTH_MODEL = "incidents.Incident"
-
-# Celery settings
-RABBITMQ_USER = os.getenv("RABBITMQ_USER", "mor")
-RABBITMQ_PASSWORD = os.getenv("RABBITMQ_PASSWORD", "insecure")
-RABBITMQ_VHOST = os.getenv("RABBITMQ_VHOST", "vhost")
-RABBITMQ_HOST = os.getenv("RABBITMQ_HOST", "rabbit")
-
-CELERY_BROKER_URL = os.getenv(
-    "CELERY_BROKER_URL",
-    f"amqp://{RABBITMQ_USER}:{RABBITMQ_PASSWORD}" f"@{RABBITMQ_HOST}/{RABBITMQ_VHOST}",
-)
-CELERY_EMAIL_CHUNK_SIZE = 1
-CELERY_RESULT_BACKEND = "django-db"
-CELERY_TASK_RESULT_EXPIRES = 604800  # 7 days in seconds (7*24*60*60)
-CELERY_TASK_ALWAYS_EAGER = os.getenv("CELERY_TASK_ALWAYS_EAGER", False) in TRUE_VALUES
-
-# Celery Beat settings
-CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-CELERY_BEAT_SCHEDULE = {}
-
-# E-mail settings for SMTP (SendGrid)
-EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "djcelery_email.backends.CeleryEmailBackend")
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-EMAIL_PORT = os.getenv("EMAIL_PORT", 465)  # 465 fort SSL 587 for TLS
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", False) in TRUE_VALUES
-if not EMAIL_USE_TLS:
-    EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", True) in TRUE_VALUES
-CELERY_EMAIL_BACKEND = os.getenv(
-    "CELERY_EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend"
-)
-EMAIL_REST_ENDPOINT = os.getenv("EMAIL_REST_ENDPOINT", None)
-EMAIL_REST_ENDPOINT_TIMEOUT = os.getenv("EMAIL_REST_ENDPOINT_TIMEOUT", 5)
-EMAIL_REST_ENDPOINT_CLIENT_CERT = os.getenv("EMAIL_REST_ENDPOINT_CLIENT_CERT", None)
-EMAIL_REST_ENDPOINT_CLIENT_KEY = os.getenv("EMAIL_REST_ENDPOINT_CLIENT_KEY", None)
-
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
-DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
-
-# Sentry logging
-RAVEN_CONFIG = {
-    "dsn": os.getenv("SENTRY_RAVEN_DSN"),
-}
-
-# Azure Application insights logging
-AZURE_APPLICATION_INSIGHTS_ENABLED = (
-    os.getenv("AZURE_APPLICATION_INSIGHTS_ENABLED", False) in TRUE_VALUES
-)
-if AZURE_APPLICATION_INSIGHTS_ENABLED:
-    AZURE_APPLICATION_INSIGHTS_CONNECTION_STRING = os.getenv(
-        "AZURE_APPLICATION_INSIGHTS_CONNECTION_STRING", None
-    )
-
 # Django REST framework settings
 REST_FRAMEWORK = dict(
     PAGE_SIZE=100,
@@ -336,26 +201,14 @@ REST_FRAMEWORK = dict(
     # ),
 )
 
-SIGNALS_AUTH = {
-    "JWKS_URL": "http://dex:5556/keys",
-    "ALWAYS_OK": True,  # noqa
-    "USER_ID_FIELDS": os.getenv("USER_ID_FIELDS", "email").split(","),
-}
-TEST_LOGIN = os.getenv("TEST_LOGIN")
-
-SWAGGER_SETTINGS = {
-    "USE_SESSION_AUTH": False,
-    "SECURITY_DEFINITIONS": {},
-    "OAUTH2_CONFIG": {
-        "clientId": "swagger-ui",
-        #  'clientSecret': 'yourAppClientSecret',
-        "appName": "Signal Swagger UI",
-    },
-}
-
-# MSB Settings
-MSB_API_URL = os.getenv("MSB_API_URL", "http://localhost:42")
-MSB_USER_TOKEN = os.getenv("MSB_USER_TOKEN", "user_token")
+MSB_API_URL = os.getenv("MSB_API_URL")
+INCIDENT_API_URL = os.getenv("INCIDENT_API_URL", f"{MSB_API_URL}/sbmob/api")
+INCIDENT_API_HEALTH_CHECK_URL = os.getenv(
+    "INCIDENT_API_HEALTH_CHECK_URL", f"{MSB_API_URL}/sbmob/api/logout"
+)
+INCIDENT_API_SERVICE = os.getenv(
+    "INCIDENT_API_SERVICE", "profilr_api_services.IncidentAPIService"
+)
 
 # The URL of the Frontend
 FRONTEND_URL = os.getenv("FRONTEND_URL", None)

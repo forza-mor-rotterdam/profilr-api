@@ -46,7 +46,7 @@ ARG DJANGO_SECRET_KEY=insecure_docker_build_key
 COPY . /app/
 COPY deploy /deploy/
 
-RUN mkdir -p /media && mkdir -p /static && chown 2000 /media && chown 2000 /static
+RUN mkdir -p /media && mkdir -p /static && chown 2000 /media && chown 2000 /static && chmod 744 /media && chmod 744 /static
 
 RUN chmod +x /deploy/docker-entrypoint.sh && chown root:root /deploy/docker-entrypoint.sh
 

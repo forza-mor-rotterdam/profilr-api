@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
-      - profilr_network
+      - incidents_network
 
   api:
     build: ./api
@@ -27,16 +27,16 @@ services:
       - ./api/deploy:/deploy
       - ./api/deploy/docker-entrypoint.development.sh:/docker-entrypoint.development.sh
     networks:
-      - profilr_network
+      - incidents_network
     command:
       - "/deploy/docker-entrypoint.development.sh"
 
   redis:
     image: redis
     networks:
-      - profilr_network
+      - incidents_network
     ports:
-      - "6379:6379"
+      - "6380:6379"
   # msb:
   #   build: ./msb
   #   ports:
@@ -46,11 +46,11 @@ services:
   #   volumes:
   #     - ./msb/app/:/build/app
   #   networks:
-  #     - profilr_network
+  #     - incidents_network
 
 volumes:
   postgres-data:
 
 networks:
-  profilr_network:
+  incidents_network:
     external: true
