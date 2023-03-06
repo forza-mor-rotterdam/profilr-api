@@ -37,16 +37,16 @@ services:
       - incidents_network
     ports:
       - "6380:6379"
-  msb:
-    build: ./msb
-    ports:
-      - "8001:8001"
-    env_file:
-      - .env
-    volumes:
-      - ./msb/app/:/build/app
-    networks:
-      - incidents_network
+  # msb:
+  #   build: ./msb
+  #   ports:
+  #     - "8001:8001"
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./msb/app/:/build/app
+  #   networks:
+  #     - incidents_network
 
 volumes:
   postgres-data:
